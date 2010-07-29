@@ -1,6 +1,9 @@
+// разстояние от a до b
 function distance(a, b) { if(a && b) return Math.sqrt((a.x-b.x)*(a.x-b.x) + (a.y-b.y)*(a.y-b.y)); }
+// чертае линия от start до end с цвят style.color
 function move(start, end, style) { $('#field').drawLine(start.x, start.y, end.x, end.y, style); }
 
+// едно движение в посока, определена от вектора (start, end), използвайки style.color за цвят
 function move_n(start, end, style) {
 	var del = distance(start, end);
 	new_pos = {x: start.x+(end.x-start.x)/del, y: start.y+(end.y-start.y)/del};
@@ -8,6 +11,7 @@ function move_n(start, end, style) {
 	return new_pos;
 }
 
+// мести хищник към вероятното положение на жертвата след prediction стъпки
 function move_h1(start, vector, style) {
 	prediction = parseInt($('#heu1_prediction').val());
 	
@@ -22,12 +26,16 @@ function move_h1(start, vector, style) {
 
 victim_moved = false;
 
+// мести жертвата
 function move_victim() {
 	switch($("input[name='strategy_victim']:checked").val()) {
+		// най-късо разстояние към целта
 		case 'shortest':
 			victim = move_n(victim, target, sv);
 		break;
 		
+		// зигзагообразни движения към целта
+		// целта се "премества" със +-zigzag_delta позиции по абсцисата на всеки 30 стъпки
 		case 'zigzag':
 			zigzag_delta = parseInt($('#zigzag_delta').val());
 			
@@ -56,6 +64,8 @@ s1 = {color: '#f00'};
 s2 = {color: '#0f0'};
 s3 = {color: '#00f'};
 
+// край на играта, ако хищник достигне жертвата на под две позиции
+// или жертвата стигне целта преди това
 function is_end() {
 	if(distance(p1, victim) < 2 || distance(p2, victim) < 2 || distance(p2, victim) < 2 || distance(victim, target) < 2) {
 		alert('край, жертвата е в позиция ' +Math.round(victim.x) + ',' + Math.round(victim.y));
@@ -66,6 +76,7 @@ function is_end() {
 	return false;
 }
 
+// изпълнява една стъпка от играта
 function nextMove() {
 	switch($("input[name='strategy']:checked").val()) {
 		case 'normal':
