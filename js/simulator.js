@@ -43,11 +43,16 @@ function move_victim() {
 				victim = move_n(victim, target, sv);
 			else
 				if(!victim_moved)
-					victim_moved = {where: victim, to: {x: zigzag_delta}};
+					victim_moved = ({
+						where: victim, 
+						to: {x: zigzag_delta}, 
+						next_turn: (($('#random_movement').is(':checked')) ? Math.random()*50 : 30 )
+					});
 				
-				if(distance(victim_moved.where, victim) > 30) {
+				if(distance(victim_moved.where, victim) > victim_moved.next_turn) {
 					victim_moved.where = victim;
 					victim_moved.to.x = ((victim_moved.to.x == zigzag_delta) ? -zigzag_delta : zigzag_delta);
+					victim_moved.next_turn = (($('#random_movement').is(':checked')) ? Math.random()*50 : 30 );
 				}
 				
 				var new_pos = {x: target.x + victim_moved.to.x, y: target.y};
