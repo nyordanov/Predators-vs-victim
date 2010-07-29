@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" dir="ltr" lang="fr">
+
+	<head>
+		<title>
+			predators
+		</title>
+		<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/jquery.svg.js"></script>
+		<script type="text/javascript" src="js/jquery.drawinglibrary.js"></script>
+		<script type="text/javascript" src="js/simulator.js"></script>
+	  	
+		<style type="text/css">
+			.canvas{
+				clear: both;
+				position: relative;
+				width: 96%;
+				height: 6000px;
+				background: #666;
+				padding: 20px 0 0 50px;
+			}
+			
+			canvas {
+				background: #666;
+				margin: 20px 0 0 50px;
+			}
+			
+			div.left { float: left; width: 49%}
+			div.right { float: right; width: 49%}
+		</style>
+	</head>
+	<body>				
+		
+
+
+	<div class="limiter">
+				
+				<form id="data">
+					<div class="left">
+					
+						p1.x <input type="text" id="p1x" value="100" />
+						p1.y <input type="text" id="p1y" value="0" /><br />
+						p2.x <input type="text" id="p2x" value="0" />
+						p2.y <input type="text" id="p2y" value="173" /><br />
+						p3.x <input type="text" id="p3x" value="200" />
+						p3.y <input type="text" id="p3y" value="173" /><br />
+					
+						victim.x <input type="text" id="victimx" value="100" />
+						victim.y <input type="text" id="victimy" value="108" /><br />
+						target.x <input type="text" id="targetx" value="100" />
+						target.y <input type="text" id="targety" value="300" /><br />
+						<input type="button" id="start" value="начало" />
+					</div>
+					<div class="right">
+						<div>
+							стратегия хищници:
+							<br />
+							<label><input type="radio" name="strategy" value="normal" checked="cheched"/> нормална</label><br />
+							<label><input type="radio" name="strategy" value="heuristic1"/> предвиждане на позиция</label> |
+							<label>предвиждане <input type="text" id="heu1_prediction" size="3" value="40" /></label>
+						</div>
+						<div>
+							стратегия жертва:
+							<br />
+							<label><input type="radio" name="strategy_victim" value="shortest" checked="checked"/> най-късо разстояние</label><br />
+							<label><input type="radio" name="strategy_victim" value="zigzag" /> зигзаг</label> |
+							<label>Δзигзаг <input type="text" id="zigzag_delta" size="3" value="30" /></label>
+							<br />
+						</div>
+					</div>
+				</form>
+				
+				<div id="field" class="canvas"></div>
+				
+	<div>
+				
+	</body>
+</html>
