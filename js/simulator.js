@@ -6,17 +6,17 @@ function move(start, end, style) { $('#field').drawLine(start.x, start.y, end.x,
 // едно движение в посока, определена от вектора (start, end), използвайки style.color за цвят
 function move_n(start, end, style) {
 	var del = distance(start, end);
-	new_pos = {x: start.x+(end.x-start.x)/del, y: start.y+(end.y-start.y)/del};
+	var new_pos = {x: start.x+(end.x-start.x)/del, y: start.y+(end.y-start.y)/del};
 	move(start, new_pos, style);
 	return new_pos;
 }
 
 // мести хищник към вероятното положение на жертвата след prediction стъпки
 function move_h1(start, vector, style) {
-	prediction = parseInt($('#heu1_prediction').val());
+	var prediction = parseInt($('#heu1_prediction').val());
 	
 	var del = distance(vector.a, vector.b);
-	new_pos = {x: vector.a.x+(vector.b.x-vector.a.x)/del*prediction, y: vector.a.y+(vector.b.y-vector.a.y)/del*prediction};
+	var new_pos = {x: vector.a.x+(vector.b.x-vector.a.x)/del*prediction, y: vector.a.y+(vector.b.y-vector.a.y)/del*prediction};
 	
 	if(start != new_pos)
 		return move_n(start, new_pos, style);
@@ -37,7 +37,7 @@ function move_victim() {
 		// зигзагообразни движения към целта
 		// целта се "премества" със +-zigzag_delta позиции по абсцисата на всеки 30 стъпки
 		case 'zigzag':
-			zigzag_delta = parseInt($('#zigzag_delta').val());
+			var zigzag_delta = parseInt($('#zigzag_delta').val());
 			
 			if(distance(victim, target) < zigzag_delta)
 				victim = move_n(victim, target, sv);
@@ -50,7 +50,7 @@ function move_victim() {
 					victim_moved.to.x = ((victim_moved.to.x == zigzag_delta) ? -zigzag_delta : zigzag_delta);
 				}
 				
-				new_pos = {x: target.x + victim_moved.to.x, y: target.y};
+				var new_pos = {x: target.x + victim_moved.to.x, y: target.y};
 				
 				victim = move_n(victim, new_pos, sv);
 		break;
@@ -87,7 +87,7 @@ function nextMove() {
 		break;
 		
 		case 'heuristic1':
-			prev_victim = victim;
+			var prev_victim = victim;
 			move_victim();
 			
 			p1 = move_h1(p1, {a: prev_victim, b: victim}, s1);
@@ -101,8 +101,7 @@ function nextMove() {
 }
 
 $(document).ready(function(){	
-	count = 0;
-	first = true;
+	var first = true;
 	
 	$('#start').click(function() {
 		$('canvas').remove();
